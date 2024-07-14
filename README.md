@@ -2,7 +2,7 @@
 
 # ScrapMechanic Logic Tools
 
-First start by making a new blueprint in game. Find where it was saved and copy the path and file name to the config folder. You will also have to get the path of the game files and add it to the config file.
+First start by making a new blueprint in game. Find where it was saved and copy the path and file name to the config file. You will also have to get the path of the game files and add it to the config file.
 
 Next run the blocks file, if there are no errors in the paths it will make a block_list file. This file contains all the blocks and objects that it could find.
 
