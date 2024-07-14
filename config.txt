@@ -1,0 +1,3 @@
+path/to/SteamLibrary/steamapps/common/Scrap Mechanic
+path/to/blueprint/folder
+blueprint-folder-name
