@@ -6,7 +6,7 @@ First start by making a new blueprint in game. Find where it was saved and copy 
 
 Next run the blocks file, if there are no errors in the paths it will make a block_list file. This file contains all the blocks and objects that it could find.
 
-That's it you should be ready to run the example script or make your own.
+That's it, you should be ready to run the example script, or make your own.
 
 ## Example
 
