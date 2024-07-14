@@ -48,7 +48,7 @@ def rgb_hex(color):
         hex_blue = "0" + hex_blue
     return hex_red + hex_green + hex_blue
 
-def fill_void(object,(x,y,z),block, color = "000000" ,offSet = None):
+def fill_void(object,size,block, color = "000000" ,offSet = None):
     def fill_block(member):
         if hasattr(member, "timer_pos"):
             posx, posy, posz = member.timer_pos
@@ -80,6 +80,8 @@ def fill_void(object,(x,y,z),block, color = "000000" ,offSet = None):
                             object.fill_block(block, (x+offx,y+offy,z+offz), (1,1,1), color)
                         else:
                             object.place_object(block,(x+offx,y+offy,z+offz),"up","up", color)
+
+    x,y,z = size
 
     filled_blocks = [[[None for _ in range(z)] for _ in range(y)] for _ in range(x)]
 
