@@ -886,6 +886,139 @@ class Button:
             "xaxis":self.rot[0],
             "zaxis":self.rot[1]}
 
+class Chair:
+    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
+        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
+        pos,rot = location(pos,facing,rotated)
+        if color == None:
+            color = "df7f01"
+
+        self.pos = pos
+        self.rot = rot
+        self.facing = facing
+        self.rotated = rotated
+        self.color = color
+        self.ID = blueprint.Logic_ID.get_next()
+        self.connections = []
+
+        blueprint.gates.append(self)
+
+    def connect(self, device):
+        if type(device) == type([]):
+            for i in device:
+                self.connections.append({"id": i.ID})
+        else:
+            self.connections.append({"id": device.ID})
+
+    def blueprint(self):
+        if self.connections == []:
+            connections = None
+        else:
+            connections = self.connections
+
+        return {
+            "color":self.color,
+            "controller":{
+                "controllers":connections,
+                "id":self.ID,
+                "joints":None},
+            "pos":{
+                "x":self.pos[0],
+                "y":self.pos[1],
+                "z":self.pos[2]},
+            "shapeId":"4c93de5a-72ab-40d0-a081-c41e3aa87e86",
+            "xaxis":self.rot[0],
+            "zaxis":self.rot[1]}
+
+class Chair:
+    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
+        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
+        pos,rot = location(pos,facing,rotated)
+        if color == None:
+            color = "df7f01"
+
+        self.pos = pos
+        self.rot = rot
+        self.facing = facing
+        self.rotated = rotated
+        self.color = color
+        self.ID = blueprint.Logic_ID.get_next()
+        self.connections = []
+
+        blueprint.gates.append(self)
+
+    def connect(self, device):
+        if type(device) == type([]):
+            for i in device:
+                self.connections.append({"id": i.ID})
+        else:
+            self.connections.append({"id": device.ID})
+
+    def blueprint(self):
+        if self.connections == []:
+            connections = None
+        else:
+            connections = self.connections
+
+        return {
+            "color":self.color,
+            "controller":{
+                "controllers":connections,
+                "id":self.ID,
+                "joints":None},
+            "pos":{
+                "x":self.pos[0],
+                "y":self.pos[1],
+                "z":self.pos[2]},
+            "shapeId":"4c93de5a-72ab-40d0-a081-c41e3aa87e86",
+            "xaxis":self.rot[0],
+            "zaxis":self.rot[1]}
+
+class Seat:
+    def __init__(self,blueprint,seat,positon,facing,rotated,color=None,rotation="x,y,z"):
+        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
+        pos,rot = location(pos,facing,rotated)
+        if color == None:
+            color = "df7f01"
+
+        self.pos = pos
+        self.rot = rot
+        self.facing = facing
+        self.seat = seat
+        self.rotated = rotated
+        self.color = color
+        self.ID = blueprint.Logic_ID.get_next()
+        self.connections = []
+
+        blueprint.gates.append(self)
+
+    def connect(self, device):
+        if type(device) == type([]):
+            for i in device:
+                self.connections.append({"id": i.ID})
+        else:
+            self.connections.append({"id": device.ID})
+
+    def blueprint(self):
+        if self.connections == []:
+            connections = None
+        else:
+            connections = self.connections
+
+        return {
+            "color":self.color,
+            "controller":{
+                "controllers":connections,
+                "id":self.ID,
+                "joints":None,
+                "steering":None},
+            "pos":{
+                "x":self.pos[0],
+                "y":self.pos[1],
+                "z":self.pos[2]},
+            "shapeId":self.seat["uuid"],
+            "xaxis":self.rot[0],
+            "zaxis":self.rot[1]}
 
 
 class Blueprint:
