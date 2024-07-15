@@ -7,6 +7,7 @@ blocks = block_list.blocks()  # list of usable blocks
 objects = block_list.objects()  # list of usable objects
 colors = color_list.colors()  # list of Scrap Mechanic Colors
 
+
 def offset(pos,offset):
     return (offset[0]+pos[0],offset[1]+pos[1],offset[2]+pos[2])
 
