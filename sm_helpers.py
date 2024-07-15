@@ -7,6 +7,9 @@ blocks = block_list.blocks()  # list of usable blocks
 objects = block_list.objects()  # list of usable objects
 colors = color_list.colors()  # list of Scrap Mechanic Colors
 
+def offset(pos,offset):
+    return (offset[0]+pos[0],offset[1]+pos[1],offset[2]+pos[2])
+
 
 def hex_rgb(color):
     r = int(color[:2],16)
@@ -637,66 +640,6 @@ def wedge_color_match(color):
     return rgb_hex((red,green,blue))
 
 
-class ID:
-    def __init__(self):
-        self.used_IDs = []
-        self.current_ID = 0
-
-    def cheak_ID(self,ID):
-        for ID_range in self.used_IDs:
-            if ID_range[0] <= ID <= ID_range[1]:
-                return True
-        return False
-
-    def add_ID(self,ID):
-        if self.cheak_ID(ID):
-            return False
-        self.used_IDs.append((ID,ID))
-        self.clean()
-        return True
-
-    def get_next(self):
-        while not self.add_ID(self.current_ID):
-            self.current_ID += 1
-        self.clean()
-        return self.current_ID
-
-    def set_ID(self,ID):
-        if self.add_ID(ID):
-            return ID
-        else:
-            return None
-
-    def set_range(self,range):
-        self.used_IDs.append(range)
-
-    def clean(self):
-        length = len(self.used_IDs)
-        new_range = [self.used_IDs[0][0],self.used_IDs[0][1]]
-        new_used_IDs = []
-        for index in range(length):
-            if index + 1 < length:
-                if self.used_IDs[index + 1][0] == new_range[1] + 1:
-                    new_range[1] = self.used_IDs[index + 1][1]
-                else:
-                    new_used_IDs.append(tuple(new_range))
-                    new_range = [self.used_IDs[index + 1][0],self.used_IDs[index + 1][1]]
-            else:
-                new_used_IDs.append(tuple(new_range))
-        self.used_IDs = new_used_IDs
-
-    def claim_range(self,amount):
-        next = 0
-        for range in self.used_IDs:
-            s,e = range
-            if next <= s <= next + amount or next <= e <= next + amount:
-                next = e + 1
-
-        self.used_IDs.append((next,next + amount))
-        print(next)
-        return (next)
-
-
 def connect_logic(logic1,logic2):
     for i in range(len(logic1)):
         logic1[i].connect(logic2[i])
@@ -1155,7 +1098,71 @@ class Blueprint:
         self.childs = blueprint["bodies"][0]["childs"]
         self.version = blueprint["version"]
 
+class Joints:
+    def __init__(self):
+        self.joints = []
 
+    def addJoint(self,joint):
+        self.joints.append(joint)
+
+class ID:
+    def __init__(self):
+        self.used_IDs = []
+        self.current_ID = 0
+
+    def cheak_ID(self,ID):
+        for ID_range in self.used_IDs:
+            if ID_range[0] <= ID <= ID_range[1]:
+                return True
+        return False
+
+    def add_ID(self,ID):
+        if self.cheak_ID(ID):
+            return False
+        self.used_IDs.append((ID,ID))
+        self.clean()
+        return True
+
+    def get_next(self):
+        while not self.add_ID(self.current_ID):
+            self.current_ID += 1
+        self.clean()
+        return self.current_ID
+
+    def set_ID(self,ID):
+        if self.add_ID(ID):
+            return ID
+        else:
+            return None
+
+    def set_range(self,range):
+        self.used_IDs.append(range)
+
+    def clean(self):
+        length = len(self.used_IDs)
+        new_range = [self.used_IDs[0][0],self.used_IDs[0][1]]
+        new_used_IDs = []
+        for index in range(length):
+            if index + 1 < length:
+                if self.used_IDs[index + 1][0] == new_range[1] + 1:
+                    new_range[1] = self.used_IDs[index + 1][1]
+                else:
+                    new_used_IDs.append(tuple(new_range))
+                    new_range = [self.used_IDs[index + 1][0],self.used_IDs[index + 1][1]]
+            else:
+                new_used_IDs.append(tuple(new_range))
+        self.used_IDs = new_used_IDs
+
+    def claim_range(self,amount):
+        next = 0
+        for range in self.used_IDs:
+            s,e = range
+            if next <= s <= next + amount or next <= e <= next + amount:
+                next = e + 1
+
+        self.used_IDs.append((next,next + amount))
+        print(next)
+        return (next)
 
 class AsciiBlock:
     def __init__(self, blueprint, id, char, positon, facing, rotated, color=None, rotation="x,y,z"):
