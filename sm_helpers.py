@@ -1020,6 +1020,51 @@ class Seat:
             "xaxis":self.rot[0],
             "zaxis":self.rot[1]}
 
+class horn:
+    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
+        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
+        pos,rot = location(pos,facing,rotated)
+        if color == None:
+            color = "df7f01"
+
+        self.pos = pos
+        self.rot = rot
+        self.facing = facing
+        self.rotated = rotated
+        self.color = color
+        self.ID = blueprint.Logic_ID.get_next()
+        self.connections = []
+
+        blueprint.gates.append(self)
+
+    def connect(self, device):
+        if type(device) == type([]):
+            for i in device:
+                self.connections.append({"id": i.ID})
+        else:
+            self.connections.append({"id": device.ID})
+
+    def blueprint(self):
+        if self.connections == []:
+            connections = None
+        else:
+            connections = self.connections
+
+        return {
+            "color":self.color,
+            "controller":{
+                "containers": None,
+                "controllers":connections,
+                "data":"gExVQQAAAAEFBQDwAgIAAAAEgHNsaWRlclBvcwgF",
+                "id":self.ID,
+                "joints":None},
+            "pos":{
+                "x":self.pos[0],
+                "y":self.pos[1],
+                "z":self.pos[2]},
+            "shapeId":"818f4e15-ff51-4fed-b874-723a25d62e1c",
+            "xaxis":self.rot[0],
+            "zaxis":self.rot[1]}
 
 class Blueprint:
     def __init__(self,Logic_ID):
