@@ -160,315 +160,118 @@ def border(blueprint,posx,posy,offx,offy):
     blueprint.place_object(objects.Duct_End, (posx+offx, posy+offy+1, 0), "north", "right", "000000")
 
 
+def rotate(rotation, pos, facing, rotated):
+    def get_rotation(a):
+        if a < 0:
+            a *= -1
+            a %= 360
+            a = 360 - a
+        else:
+            a %= 360
 
-def face(direction,facing,rotated):
-    if direction == "up":
-        if facing == "up":
-            if rotated == "up":
-                return "west","left"
-            if rotated == "right":
-                return "west","up"
-            if rotated == "down":
-                return "west","left"
-            if rotated == "left":
-                return "west","down"
+        if a < 90 or a == 360:
+            return 0
+        if a < 180:
+            return 1
+        if a < 270:
+            return 2
+        if a < 360:
+            return 3
 
-        if facing == "down":
-            if rotated == "up":
-                return "east","right"
-            if rotated == "right":
-                return "east","up"
-            if rotated == "down":
-                return "east","left"
-            if rotated == "left":
-                return "east","down"
+    def get_index(index,a):
+        index += get_rotation(a)
+        if index > 3:
+            index-=4
+        return index
+    def cos(a):
+        if a < 90 or a == 360:
+            return 1
+        if a < 180:
+            return 0
+        if a < 270:
+            return -1
+        if a < 360:
+            return 0
 
-        if facing == "north":
-            if rotated == "up":
-                return "north","right"
-            if rotated == "right":
-                return "north","down"
-            if rotated == "down":
-                return "north","left"
-            if rotated == "left":
-                return "noth","up"
+    def sin(a):
+        if a < 90 or a == 360:
+            return 0
+        if a < 180:
+            return 1
+        if a < 270:
+            return 0
+        if a < 360:
+            return -1
 
-        if facing == "east":
-            if rotated == "up":
-                return "up","left"
-            if rotated == "right":
-                return "up","up"
-            if rotated == "down":
-                return "up","right"
-            if rotated == "left":
-                return "up","down"
+    def rotate_x(a, pos, facing, rotated):
+        rotated_index = rotate.index(rotated)
+        if facing in xfacing:
+            facing_index = xfacing.index(facing)
+            facing = xfacing[get_index(facing_index, a)]
+            rotated = rotate[get_index(rotated_index, a)]
+        else:
+            if facing == "north":
+                rotated = rotate[get_index(rotated_index,a)]
+            else:
+                rotated = rotate[get_index(rotated_index, -a)]
 
-        if facing == "south":
-            if rotated == "up":
-                return "south","left"
-            if rotated == "right":
-                return "south","up"
-            if rotated == "down":
-                return "south","right"
-            if rotated == "left":
-                return "south","down"
+        return (cos(a)*pos[0] + sin(a)*pos[2],pos[1],-sin(a)*pos[0] + cos(a)*pos[2]), facing, rotated
 
-        if facing == "west":
-            if rotated == "up":
-                return "down","left"
-            if rotated == "right":
-                return "down","up"
-            if rotated == "down":
-                return "down","right"
-            if rotated == "left":
-                return "down","down"
+    def rotate_y(a, pos, facing, rotated):
+        rotated_index = rotate.index(rotated)
+        if facing in yfacing:
+            facing_index = yfacing.index(facing)
+            facing = yfacing[get_index(facing_index, a)]
+            #rotated = rotate[get_index(rotated_index, a)]
+        else:
+            if facing == "east":
+                rotated = rotate[get_index(rotated_index,a)]
+            else:
+                rotated = rotate[get_index(rotated_index, -a)]
+        return (pos[0], cos(a)*pos[1] + -sin(a)*pos[2], sin(a)*pos[1] + cos(a)*pos[2]), facing, rotated
 
-    if direction == "right":
-        if facing == "up":
-            if rotated == "up":
-                return "up","left"
-            if rotated == "right":
-                return "up","down"
-            if rotated == "down":
-                return "up","right"
-            if rotated == "left":
-                return "up","up"
+    def rotate_z(a, pos, facing, rotated):
+        if facing in zfacing:
+            facing_index = zfacing.index(facing)
+            facing = zfacing[get_index(facing_index, a)]
+        else:
+            rotated_index = rotate.index(rotated)
+            if facing == "up":
+                rotated = rotate[get_index(rotated_index,a)]
+            else:
+                rotated = rotate[get_index(rotated_index, -a)]
+        return (cos(a)*pos[0] + -sin(a)*pos[1], -sin(a)*pos[0] + cos(a)*pos[1], pos[2]), facing, rotated
 
-        if facing == "down":
-            if rotated == "up":
-                return "down","right"
-            if rotated == "right":
-                return "down","down"
-            if rotated == "down":
-                return "down","left"
-            if rotated == "left":
-                return "down","up"
 
-        if facing == "north":
-            if rotated == "up":
-                return "east","up"
-            if rotated == "right":
-                return "east","right"
-            if rotated == "down":
-                return "east","down"
-            if rotated == "left":
-                return "east","left"
-
-        if facing == "east":
-            if rotated == "up":
-                return "south","up"
-            if rotated == "right":
-                return "south","right"
-            if rotated == "down":
-                return "south","down"
-            if rotated == "left":
-                return "south","left"
-
-        if facing == "south":
-            if rotated == "up":
-                return "west","up"
-            if rotated == "right":
-                return "west","right"
-            if rotated == "down":
-                return "west","down"
-            if rotated == "left":
-                return "west","left"
-
-        if facing == "west":
-            if rotated == "up":
-                return "north","up"
-            if rotated == "right":
-                return "north","right"
-            if rotated == "down":
-                return "north","down"
-            if rotated == "left":
-                return "north","left"
-
-    if direction == "down":
-        if facing == "up":
-            if rotated == "up":
-                return "east","left"
-            if rotated == "right":
-                return "east","up"
-            if rotated == "down":
-                return "east","left"
-            if rotated == "left":
-                return "east","down"
-
-        if facing == "down":
-            if rotated == "up":
-                return "west","right"
-            if rotated == "right":
-                return "west","up"
-            if rotated == "down":
-                return "west","left"
-            if rotated == "left":
-                return "west","down"
-
-        if facing == "north":
-            if rotated == "up":
-                return "north","left"
-            if rotated == "right":
-                return "north","up"
-            if rotated == "down":
-                return "north","right"
-            if rotated == "left":
-                return "noth","down"
-
-        if facing == "east":
-            if rotated == "up":
-                return "down","left"
-            if rotated == "right":
-                return "down","up"
-            if rotated == "down":
-                return "down","right"
-            if rotated == "left":
-                return "down","down"
-
-        if facing == "south":
-            if rotated == "up":
-                return "south","right"
-            if rotated == "right":
-                return "south","dwon"
-            if rotated == "down":
-                return "south","left"
-            if rotated == "left":
-                return "south","up"
-
-        if facing == "west":
-            if rotated == "up":
-                return "up","left"
-            if rotated == "right":
-                return "up","up"
-            if rotated == "down":
-                return "up","right"
-            if rotated == "left":
-                return "up","down"
-
-    if direction == "left":
-        if facing == "up":
-            if rotated == "up":
-                return "up","right"
-            if rotated == "right":
-                return "up","up"
-            if rotated == "down":
-                return "up","left"
-            if rotated == "left":
-                return "up","down"
-
-        if facing == "down":
-            if rotated == "up":
-                return "down","left"
-            if rotated == "right":
-                return "down","up"
-            if rotated == "down":
-                return "down","right"
-            if rotated == "left":
-                return "down","down"
-
-        if facing == "north":
-            if rotated == "up":
-                return "west","up"
-            if rotated == "right":
-                return "west","right"
-            if rotated == "down":
-                return "west","down"
-            if rotated == "left":
-                return "west","left"
-
-        if facing == "east":
-            if rotated == "up":
-                return "north","up"
-            if rotated == "right":
-                return "north","right"
-            if rotated == "down":
-                return "north","down"
-            if rotated == "left":
-                return "north","left"
-
-        if facing == "south":
-            if rotated == "up":
-                return "east","up"
-            if rotated == "right":
-                return "east","right"
-            if rotated == "down":
-                return "east","down"
-            if rotated == "left":
-                return "east","left"
-
-        if facing == "west":
-            if rotated == "up":
-                return "south","up"
-            if rotated == "right":
-                return "south","right"
-            if rotated == "down":
-                return "south","down"
-            if rotated == "left":
-                return "south","left"
-
-    return facing,rotated
-    
-def rotate(rotation,pos,facing,rotated):
     facing = facing
     rotated = rotated
-    rx,ry,rz = pos
 
+    xfacing = ["up", "east", "down", "west"]
+    zfacing = ["north", "east", "south", "west"]
+    yfacing = ["north", "up", "south", "down"]
 
-    if rotation == "x,y,z":
-        facing = facing
-        rotated = rotated
+    rotate = ["up","right","down","left"]
 
-    elif rotation == "y,x,z":
-        facing,rotated = face("left",facing,rotated)
-    elif rotation == "-y,x,z":
-        facing,rotated = face("right",facing,rotated)
+    px, py, pz = pos
+    rx, ry, rz = rotation
 
+    rx = rx % 360
+    ry = ry % 360
+    rz = rz % 360
+    print(pos, facing, rotated)
+    pos,facing,rotated = rotate_x(rx, pos, facing, rotated)
+    print(pos, facing, rotated)
+    pos,facing,rotated = rotate_y(ry, pos, facing, rotated)
+    print(pos, facing, rotated)
+    pos,facing,rotated = rotate_z(rz, pos, facing, rotated)
+    print(pos,facing,rotated)
+    print("////////////////////////////////////")
+    return pos, facing, rotated
 
-
-    if rotation.split(",")[0] == "x":
-        rx = pos[0]
-    elif rotation.split(",")[0] == "y":
-        rx = pos[1]
-    elif rotation.split(",")[0] == "z":
-        rx = pos[2]
-    elif rotation.split(",")[0] == "-x":
-        rx = -pos[0]
-    elif rotation.split(",")[0] == "-y":
-        rx = -pos[1]
-    elif rotation.split(",")[0] == "-z":
-        rx = -pos[2]
-
-    if rotation.split(",")[1] == "x":
-        ry = pos[0]
-    elif rotation.split(",")[1] == "y":
-        ry = pos[1]
-    elif rotation.split(",")[1] == "z":
-        ry = pos[2]
-    elif rotation.split(",")[1] == "-x":
-        ry = -pos[0]
-    elif rotation.split(",")[1] == "-y":
-        ry = -pos[1]
-    elif rotation.split(",")[1] == "-z":
-        ry = -pos[2]
-
-    if rotation.split(",")[2] == "x":
-        rz = pos[0]
-    elif rotation.split(",")[2] == "y":
-        rz = pos[1]
-    elif rotation.split(",")[2] == "z":
-        rz = pos[2]
-    elif rotation.split(",")[2] == "-x":
-        rz = -pos[0]
-    elif rotation.split(",")[2] == "-y":
-        rz = -pos[1]
-    elif rotation.split(",")[2] == "-z":
-        rz = -pos[2]
-
-    return (rx,ry,rz),facing,rotated
-
-
-def location(pos,facing,rotated):
-    x,y,z = pos
+def location(args):
+    x,y,z = args[0]
+    facing = args[1]
+    rotated = args[2]
 
     if facing == "west":
         if rotated == "down":
@@ -495,18 +298,17 @@ def location(pos,facing,rotated):
             print("not a valid rotation")
             exit(1)
     elif facing == "down":
-        if rotated == "down":
+        if rotated == "left":
             return (x + 1,y + 1,z + 1),(-1,-2)
-        elif rotated == "right":
-            return (x + 1,y,z + 1),(2,-1)
-        elif rotated == "left":
-            return (x,y + 1,z + 1),(-2,1)
         elif rotated == "up":
+            return (x + 1,y,z + 1),(2,-1)
+        elif rotated == "down":
+            return (x,y + 1,z + 1),(-2,1)
+        elif rotated == "right":
             return (x,y,z + 1),(1,2)
         else:
             print("not a valid rotation")
             exit(1)
-
     elif facing == "south":
         if rotated == "down":
             return (x + 1,y + 1,z + 1),(-3,-1)
@@ -519,7 +321,6 @@ def location(pos,facing,rotated):
         else:
             print("not a valid rotation")
             exit(1)
-
     elif facing == "north":
         if rotated == "down":
             return (x + 1,y,z + 1),(-1,-3)
@@ -532,13 +333,12 @@ def location(pos,facing,rotated):
         else:
             print("not a valid rotation")
             exit(1)
-
     elif facing == "east":
         if rotated == "down":
             return (x,y + 1,z + 1),(-3,-2)
-        elif rotated == "right":
-            return (x,y + 1,z),(-2,3)
         elif rotated == "left":
+            return (x,y + 1,z),(-2,3)
+        elif rotated == "right":
             return (x,y,z + 1),(2,-3)
         elif rotated == "up":
             return (x,y,z),(3,2)
@@ -548,90 +348,6 @@ def location(pos,facing,rotated):
     else:
         print("not a valid rotation")
         exit(1)
-
-
-def object_rotations(pos,facing,rotated):
-    x,y,z = pos
-
-    if facing == "west":
-        if rotated == "down":
-            return (x + 1,y,z),(2,3)
-        elif rotated == "right":
-            return (x + 1,y + 1,z),(3,-2)
-        elif rotated == "left":
-            return (x + 1,y,z + 1),(-3,2)
-        elif rotated == "up":
-            return (x + 1,y + 1,z + 1),(-2,-3)
-        else:
-            print("not a valid rotation")
-            exit(1)
-    elif facing == "up":
-        if rotated == "down":
-            return (1 + x,1 + y,z),(-2,-1)
-        elif rotated == "right":
-            return (x,y + 1,z),(1,-2)
-        elif rotated == "left":
-            return (x + 1,y,z),(-1,2)
-        elif rotated == "up":
-            return (x,y,z),(2,1)
-        else:
-            print("not a valid rotation")
-            exit(1)
-    elif facing == "down":
-        if rotated == "down":
-            return (x + 1,y + 1,z + 1),(-1,-2)
-        elif rotated == "right":
-            return (x + 1,y,z + 1),(2,-1)
-        elif rotated == "left":
-            return (x,y + 1,z + 1),(-2,1)
-        elif rotated == "up":
-            return (x,y,z + 1),(1,2)
-        else:
-            print("not a valid rotation")
-            exit(1)
-
-    elif facing == "south":
-        if rotated == "down":
-            return (x + 1,y + 1,z),(-1,3)
-        elif rotated == "right":
-            return (x,y + 1,z),(3,1)
-        elif rotated == "left":
-            return (x + 1,y + 1,z + 1),(-3,-1)
-        elif rotated == "up":
-            return (x,y + 1,z + 1),(1,-3)
-        else:
-            print("not a valid rotation")
-            exit(1)
-
-    elif facing == "north":
-        if rotated == "down":
-            return (x,y,z),(1,3)
-        elif rotated == "right":
-            return (x + 1,y,z),(3,-1)
-        elif rotated == "left":
-            return (x,y,z + 1),(-3,1)
-        elif rotated == "up":
-            return (x + 1,y,z + 1),(-1,-3)
-        else:
-            print("not a valid rotation")
-            exit(1)
-
-    elif facing == "east":
-        if rotated == "down":
-            return (x,y + 1,z),(-2,3)
-        elif rotated == "right":
-            return (x,y,z),(3,2)
-        elif rotated == "left":
-            return (x,y + 1,z + 1),(-3,-2)
-        elif rotated == "up":
-            return (x,y,z + 1),(2,-3)
-        else:
-            print("not a valid rotation")
-            exit(1)
-    else:
-        print("not a valid rotation")
-        exit(1)
-
 
 def wedge_color_match(color):
     red,green,blue = hex_rgb(color)
@@ -645,11 +361,35 @@ def connect_logic(logic1,logic2):
     for i in range(len(logic1)):
         logic1[i].connect(logic2[i])
 
+class FillBlock:
+    def __init__(self,blueprint, block, pos, size, color=None, rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, pos, "north", "right"))
+        if color == None:
+            self.color = block["color"]
+        else:
+            self.color = color
+        self.block = block
+        self.size = size
 
+        blueprint.parts.append(self)
+
+    def blueprint(self):
+        return {
+            "bounds": {
+                "x": self.size[0],
+                "y": self.size[1],
+                "z": self.size[2]},
+            "color": self.color,
+            "pos": {
+                "x": self.pos[0],
+                "y": self.pos[1],
+                "z": self.pos[2]},
+            "shapeId": self.block["uuid"],
+            "xaxis": self.rot[0],
+            "zaxis": self.rot[1]}
 class LogicGate:
-    def __init__(self,blueprint,mode,positon,facing,rotated,color=None,rotation="x,y,z",ID = None):
-        pos, facing, rotated = rotate(rotation, positon, facing, rotated)
-        pos, rot = location(pos, facing, rotated)
+    def __init__(self,blueprint,mode,positon,facing,rotated,color=None,rotation=(0,0,0),ID = None):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
 
         if mode == "and":
             mode = 0
@@ -669,8 +409,6 @@ class LogicGate:
         if color == None:
             color = "df7f01"
 
-        self.pos = pos
-        self.rot = rot
         self.facing = facing
         self.rotated = rotated
         self.mode = mode
@@ -684,7 +422,7 @@ class LogicGate:
         else:
             self.ID = blueprint.Logic_ID.get_next()
         self.connections = []
-        blueprint.gates.append(self)
+        blueprint.parts.append(self)
 
     def connect(self,device):
         if type(device) == type([]):
@@ -736,18 +474,17 @@ class Timer:
         print("error in get_timer_pos()")
         exit(1)
 
-    def __init__(self,blueprint,seconds,ticks,positon,facing,rotated,color=None,rotation="x,y,z"):
+    def __init__(self,blueprint,seconds,ticks,positon,facing,rotated,color=None,rotation=(0,0,0)):
         if 0 <= seconds <= 59:
             if 0 <= ticks <= 40:
-                pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-                pos,rot = location(pos,facing,rotated)
+                self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
 
                 if color == None:
                     color = "df7f01"
 
-                self.pos = pos
-                self.timer_pos = self.get_timer_pos(facing,pos)
-                self.rot = rot
+
+                self.timer_pos = self.get_timer_pos(facing,self.pos)
+
                 self.facing = facing
                 self.rotated = rotated
                 self.color = color
@@ -756,9 +493,7 @@ class Timer:
                 self.ticks = ticks
                 self.connections = []
 
-                print(self.pos,self.timer_pos)
-
-                blueprint.gates.append(self)
+                blueprint.parts.append(self)
 
                 return
         print("timer error")
@@ -798,21 +533,20 @@ class Timer:
             "zaxis": self.rot[1]}
 
 class Switch:
-    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
+    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
         if color == None:
             color = "df7f01"
 
-        self.pos = pos
-        self.rot = rot
+
+
         self.facing = facing
         self.rotated = rotated
         self.color = color
         self.ID = blueprint.Logic_ID.get_next()
         self.connections = []
 
-        blueprint.gates.append(self)
+        blueprint.parts.append(self)
 
     def connect(self,device):
         if type(device) == type([]):
@@ -843,21 +577,20 @@ class Switch:
             "zaxis":self.rot[1]}
 
 class Button:
-    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
+    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
         if color == None:
             color = "df7f01"
 
-        self.pos = pos
-        self.rot = rot
+
+
         self.facing = facing
         self.rotated = rotated
         self.color = color
         self.ID = blueprint.Logic_ID.get_next()
         self.connections = []
 
-        blueprint.gates.append(self)
+        blueprint.parts.append(self)
 
     def connect(self, device):
         if type(device) == type([]):
@@ -887,65 +620,20 @@ class Button:
             "zaxis":self.rot[1]}
 
 class Chair:
-    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
+    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
         if color == None:
             color = "df7f01"
 
-        self.pos = pos
-        self.rot = rot
+
+
         self.facing = facing
         self.rotated = rotated
         self.color = color
         self.ID = blueprint.Logic_ID.get_next()
         self.connections = []
 
-        blueprint.gates.append(self)
-
-    def connect(self, device):
-        if type(device) == type([]):
-            for i in device:
-                self.connections.append({"id": i.ID})
-        else:
-            self.connections.append({"id": device.ID})
-
-    def blueprint(self):
-        if self.connections == []:
-            connections = None
-        else:
-            connections = self.connections
-
-        return {
-            "color":self.color,
-            "controller":{
-                "controllers":connections,
-                "id":self.ID,
-                "joints":None},
-            "pos":{
-                "x":self.pos[0],
-                "y":self.pos[1],
-                "z":self.pos[2]},
-            "shapeId":"4c93de5a-72ab-40d0-a081-c41e3aa87e86",
-            "xaxis":self.rot[0],
-            "zaxis":self.rot[1]}
-
-class Chair:
-    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
-        if color == None:
-            color = "df7f01"
-
-        self.pos = pos
-        self.rot = rot
-        self.facing = facing
-        self.rotated = rotated
-        self.color = color
-        self.ID = blueprint.Logic_ID.get_next()
-        self.connections = []
-
-        blueprint.gates.append(self)
+        blueprint.parts.append(self)
 
     def connect(self, device):
         if type(device) == type([]):
@@ -975,14 +663,13 @@ class Chair:
             "zaxis":self.rot[1]}
 
 class Seat:
-    def __init__(self,blueprint,seat,positon,facing,rotated,color=None,rotation="x,y,z"):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
+    def __init__(self,blueprint,seat,positon,facing,rotated,color=None,rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
         if color == None:
             color = "df7f01"
 
-        self.pos = pos
-        self.rot = rot
+
+
         self.facing = facing
         self.seat = seat
         self.rotated = rotated
@@ -990,7 +677,7 @@ class Seat:
         self.ID = blueprint.Logic_ID.get_next()
         self.connections = []
 
-        blueprint.gates.append(self)
+        blueprint.parts.append(self)
 
     def connect(self, device):
         if type(device) == type([]):
@@ -1021,21 +708,20 @@ class Seat:
             "zaxis":self.rot[1]}
 
 class horn:
-    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation="x,y,z"):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
+    def __init__(self,blueprint,positon,facing,rotated,color=None,rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
         if color == None:
             color = "df7f01"
 
-        self.pos = pos
-        self.rot = rot
+
+
         self.facing = facing
         self.rotated = rotated
         self.color = color
         self.ID = blueprint.Logic_ID.get_next()
         self.connections = []
 
-        blueprint.gates.append(self)
+        blueprint.parts.append(self)
 
     def connect(self, device):
         if type(device) == type([]):
@@ -1085,11 +771,11 @@ class Blueprint:
             self.blueprint = config.readline()
 
         if self.path == "path/to/blueprint/folder/":
-            print("Please check the config file. The example.py path is still in use!")
+            print("Please check the config file. The example path is still in use!")
             exit(1)
 
         if self.path == "blueprint-folder-name":
-            print("Please check the config file. The example.py blueprint is still in use!")
+            print("Please check the config file. The example blueprint is still in use!")
             exit(1)
 
         if not os.path.isdir(self.path):
@@ -1105,13 +791,13 @@ class Blueprint:
         self.version = 4
         self.bodies = []
         self.childs = []
-        self.gates = []
+        self.parts = []
         self.Logic_ID = Logic_ID
         self.dependencies = []
 
 
     def export_blueprint(self):
-        for blueprint in self.gates:
+        for blueprint in self.parts:
             self.childs.append(blueprint.blueprint())
         blueprint = {}
         blueprint["bodies"] = self.bodies
@@ -1135,7 +821,7 @@ class Blueprint:
         for i in range(len(IDs)):
             ID.connect(IDs[i])
 
-    def place_light_object(self,block,ID,positon,facing,rotated,color=None,lightColor=None,coneAngle=0,activity=False,rotation="x,y,z"):
+    def place_light_object(self,block,ID,positon,facing,rotated,color=None,lightColor=None,coneAngle=0,activity=False,rotation=(0,0,0)):
         pos,facing,rotated = rotate(rotation,positon,facing,rotated)
         pos,rot = location(pos,facing,rotated)
         if color == None:
@@ -1195,7 +881,7 @@ class Blueprint:
                                 control["id"] = ID1
                                 self.childs[index]["controller"]["controllers"].append(control)
 
-    def place_object(self,block,positon,facing,rotated,color=None,rotation="x,y,z"):
+    def place_object(self,block,positon,facing,rotated,color=None,rotation=(0,0,0)):
         pos,facing,rotated = rotate(rotation,positon,facing,rotated)
         pos,rot = location(pos,facing,rotated)
         if color == None:
@@ -1210,27 +896,9 @@ class Blueprint:
             "xaxis":rot[0],
             "zaxis":rot[1]})
 
-    def fill_block(self,block,pos,size,color=None,rotation="x,y,z"):
-        pos,facing,rotated = rotate(rotation,pos,"up","right")
-        print(pos,facing,rotated )
-        pos,rot = location(pos,facing,rotated)
-        if color == None:
-            color = block["color"]
-        self.childs.append({
-            "bounds":{
-                "x":size[0],
-                "y":size[1],
-                "z":size[2]},
-            "color":color,
-            "pos":{
-                "x":pos[0],
-                "y":pos[1]-1,
-                "z":pos[2]},
-            "shapeId":block["uuid"],
-            "xaxis":1,
-            "zaxis":3})
 
-    def fast_logic_gate(self,ID,Mode,positon,facing,rotated,color=None,rotation="x,y,z"):
+
+    def fast_logic_gate(self,ID,Mode,positon,facing,rotated,color=None,rotation=(0,0,0)):
         pos,facing,rotated = rotate(rotation,positon,facing,rotated)
         pos,rot = location(pos,facing,rotated)
         if Mode == "and":
@@ -1344,15 +1012,15 @@ class ID:
         return (next)
 
 class AsciiBlock:
-    def __init__(self, blueprint, id, char, positon, facing, rotated, color=None, rotation="x,y,z"):
+    def __init__(self, blueprint, id, char, positon, facing, rotated, color=None, rotation=(0,0,0)):
         pos, facing, rotated = rotate(rotation, positon, facing, rotated)
         pos, rot = location(pos, facing, rotated)
 
         if color == None:
             color = "df7f01"
 
-        self.pos = pos
-        self.rot = rot
+
+
         self.facing = facing
         self.rotated = rotated
         self.char = char
@@ -1362,7 +1030,7 @@ class AsciiBlock:
         else:
             self.ID = id.get_next()
         self.connections = []
-        blueprint.gates.append(self)
+        blueprint.parts.append(self)
 
         blueprint.add_dependency({"contentId":"b7443f95-67b7-4f1e-82f4-9bef0c62c4b3","name":"The Modpack Continuation","shapeIds":["a459eb96-7f0a-42e6-a841-44f9c0561a55"],"steamFileId":2448492759})
 
