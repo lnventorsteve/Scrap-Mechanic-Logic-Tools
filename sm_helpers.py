@@ -364,7 +364,6 @@ def connect_logic(logic1,logic2):
 class PlaceObject:
     def __init__(self,blueprint,block,positon,facing,rotated,color=None,rotation=(0,0,0)):
         self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
-        self.blueprint = blueprint
         self.block = block
         self.color = color
 
