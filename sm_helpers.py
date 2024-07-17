@@ -1,3 +1,6 @@
+#sm_helpers version 0.5.4
+
+
 import json
 import os
 import block_list
