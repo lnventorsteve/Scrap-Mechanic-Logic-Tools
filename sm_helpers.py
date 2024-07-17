@@ -373,7 +373,8 @@ class PlaceObject:
     def blueprint(self):
         if self.color == None:
             self.color = self.block["color"]
-        self.childs.append({
+
+        return {
             "color":self.color,
             "pos":{
                 "x":self.pos[0],
@@ -381,7 +382,7 @@ class PlaceObject:
                 "z":self.pos[2]},
             "shapeId":self.block["uuid"],
             "xaxis":self.rot[0],
-            "zaxis":self.rot[1]})
+            "zaxis":self.rot[1]}
 
 class FillBlock:
     def __init__(self,blueprint, block, pos, size, color=None, rotation=(0,0,0)):
