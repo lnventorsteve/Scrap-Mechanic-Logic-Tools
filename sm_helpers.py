@@ -361,6 +361,25 @@ def connect_logic(logic1,logic2):
     for i in range(len(logic1)):
         logic1[i].connect(logic2[i])
 
+class PlaceObject:
+    def __init__(self,block,positon,facing,rotated,color=None,rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
+        self.block = block
+        self.color = color
+
+    def blueprint(self):
+        if self.color == None:
+            self.color = self.block["color"]
+        self.childs.append({
+            "color":self.color,
+            "pos":{
+                "x":self.pos[0],
+                "y":self.pos[1],
+                "z":self.pos[2]},
+            "shapeId":self.block["uuid"],
+            "xaxis":self.rot[0],
+            "zaxis":self.rot[1]})
+
 class FillBlock:
     def __init__(self,blueprint, block, pos, size, color=None, rotation=(0,0,0)):
         self.pos, self.rot = location(rotate(rotation, pos, "north", "right"))
@@ -881,22 +900,6 @@ class Blueprint:
                                 control = {}
                                 control["id"] = ID1
                                 self.childs[index]["controller"]["controllers"].append(control)
-
-    def place_object(self,block,positon,facing,rotated,color=None,rotation=(0,0,0)):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
-        if color == None:
-            color = block["color"]
-        self.childs.append({
-            "color":color,
-            "pos":{
-                "x":pos[0],
-                "y":pos[1],
-                "z":pos[2]},
-            "shapeId":block["uuid"],
-            "xaxis":rot[0],
-            "zaxis":rot[1]})
-
 
 
     def fast_logic_gate(self,ID,Mode,positon,facing,rotated,color=None,rotation=(0,0,0)):
