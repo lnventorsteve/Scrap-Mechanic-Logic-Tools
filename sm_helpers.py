@@ -1,4 +1,4 @@
-#sm_helpers version 0.5.4
+#sm_helpers version 0.5.5
 
 
 import json
@@ -384,6 +384,8 @@ class LightObject:
             self.coneAngle = 0
         if self.activity == False:
             self.activity = False
+
+        blueprint.parts.append(self)
 
     def connect(self,device):
         if type(device) == type([]):
