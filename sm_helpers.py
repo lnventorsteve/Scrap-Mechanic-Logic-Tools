@@ -1,4 +1,4 @@
-#sm_helpers version 0.5.5
+#sm_helpers version 0.5.6
 
 
 import json
@@ -372,6 +372,10 @@ class LightObject:
         self.block = block
         self.color = color
         self.ID = ID
+        self.lightColor =  lightColor
+        self.coneAngle =  coneAngle
+        self.activity =  activity
+
         self.connections = []
 
         if self.color == None:
