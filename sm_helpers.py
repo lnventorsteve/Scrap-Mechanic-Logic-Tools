@@ -8,6 +8,7 @@ objects = block_list.objects()  # list of usable objects
 colors = color_list.colors()  # list of Scrap Mechanic Colors
 
 
+
 def offset(pos,offset):
     return (offset[0]+pos[0],offset[1]+pos[1],offset[2]+pos[2])
 
@@ -361,6 +362,61 @@ def connect_logic(logic1,logic2):
     for i in range(len(logic1)):
         logic1[i].connect(logic2[i])
 
+
+class LightObject:
+    def __init__(self,blueprint,block,ID,positon,facing,rotated,color=None,lightColor=None,coneAngle=0,activity=False,rotation=(0,0,0)):
+        self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
+        self.block = block
+        self.color = color
+        self.ID = ID
+        self.connections = []
+
+        if self.color == None:
+            self.color = block["color"]
+
+        if self.lightColor == None:
+            self.lightColor = block["color"]
+
+        if self.coneAngle == 0:
+            self.coneAngle = 0
+        if self.activity == False:
+            self.activity = False
+
+    def connect(self,device):
+        if type(device) == type([]):
+            for i in device:
+                if type(device) == int:
+                    self.connections.append({"id": i})
+                else:
+                    self.connections.append({"id": i.ID})
+        elif type(device) == int:
+            self.connections.append({"id": device})
+        elif device is not None:
+            self.connections.append({"id": device.ID})
+
+    def blueprint(self):
+        if self.connections == []:
+            connections = None
+        else:
+            connections = self.connections
+        return {
+            "color":self.color,
+            "controller":{
+                "color":self.lightColor,
+                "coneAngle":self.coneAngle,
+                "active":self.activity,
+                "controllers":self.connections,
+                "id":self.ID,
+                "joints":None,
+                "luminance":0},
+            "pos":{
+                "x":self.pos[0],
+                "y":self.pos[1],
+                "z":self.pos[2]},
+            "shapeId":self.block["uuid"],
+            "xaxis":self.rot[0],
+            "zaxis":self.rot[1]}
+
 class PlaceObject:
     def __init__(self,blueprint,block,positon,facing,rotated,color=None,rotation=(0,0,0)):
         self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
@@ -368,6 +424,7 @@ class PlaceObject:
         self.color = color
 
         blueprint.parts.append(self)
+
 
     def blueprint(self):
         if self.color == None:
@@ -843,38 +900,6 @@ class Blueprint:
     def connect_IDS(blueprint,ID,IDs):
         for i in range(len(IDs)):
             ID.connect(IDs[i])
-
-    def place_light_object(self,block,ID,positon,facing,rotated,color=None,lightColor=None,coneAngle=0,activity=False,rotation=(0,0,0)):
-        pos,facing,rotated = rotate(rotation,positon,facing,rotated)
-        pos,rot = location(pos,facing,rotated)
-        if color == None:
-            color = block["color"]
-
-        if lightColor == None:
-            lightColor = block["color"]
-
-        if coneAngle == 0:
-            coneAngle = 0
-        if activity == False:
-            activity = False
-
-        self.childs.append({
-            "color":color,
-            "controller":{
-                "color":lightColor,
-                "coneAngle":coneAngle,
-                "active":activity,
-                "controllers":None,
-                "id":ID,
-                "joints":None,
-                "luminance":0},
-            "pos":{
-                "x":pos[0],
-                "y":pos[1],
-                "z":pos[2]},
-            "shapeId":block["uuid"],
-            "xaxis":rot[0],
-            "zaxis":rot[1]})
 
 
 
