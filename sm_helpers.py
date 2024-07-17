@@ -362,10 +362,13 @@ def connect_logic(logic1,logic2):
         logic1[i].connect(logic2[i])
 
 class PlaceObject:
-    def __init__(self,block,positon,facing,rotated,color=None,rotation=(0,0,0)):
+    def __init__(self,blueprint,block,positon,facing,rotated,color=None,rotation=(0,0,0)):
         self.pos, self.rot = location(rotate(rotation, positon, facing, rotated))
+        self.blueprint = blueprint
         self.block = block
         self.color = color
+
+        blueprint.parts.append(self)
 
     def blueprint(self):
         if self.color == None:
