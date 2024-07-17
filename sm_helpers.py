@@ -215,7 +215,7 @@ def rotate(rotation, pos, facing, rotated):
             else:
                 rotated = rotate[get_index(rotated_index, -a)]
 
-        return (cos(a)*pos[0] + sin(a)*pos[2],pos[1],-sin(a)*pos[0] + cos(a)*pos[2]), facing, rotated
+        return (cos(a)*pos[0] + sin(a)*pos[2],pos[1],sin(a)*pos[0] + cos(a)*pos[2]), facing, rotated
 
     def rotate_y(a, pos, facing, rotated):
         rotated_index = rotate.index(rotated)
@@ -240,7 +240,7 @@ def rotate(rotation, pos, facing, rotated):
                 rotated = rotate[get_index(rotated_index,a)]
             else:
                 rotated = rotate[get_index(rotated_index, -a)]
-        return (cos(a)*pos[0] + -sin(a)*pos[1], -sin(a)*pos[0] + cos(a)*pos[1], pos[2]), facing, rotated
+        return (cos(a)*pos[0] + sin(a)*pos[1], sin(a)*pos[0] + cos(a)*pos[1], pos[2]), facing, rotated
 
 
     facing = facing
@@ -374,6 +374,7 @@ class FillBlock:
         blueprint.parts.append(self)
 
     def blueprint(self):
+        print(self.pos,self.size,self.rot)
         return {
             "bounds": {
                 "x": self.size[0],
