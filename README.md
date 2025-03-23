@@ -15,9 +15,9 @@ import block_list # list of blocks and objects
 import color_list # list of blocks and objects
 import sm_helpers as sm
 
-blocks = block_list.blocks()  # list of usable blocks
-objects = block_list.objects()  # list of usable objects
-colors = color_list.colors()  # list of Scrap Mechanic Colors
+blocks = block_list.Blocks()  # list of usable blocks
+objects = block_list.Objects()  # list of usable objects
+colors = color_list.Colors()  # list of Scrap Mechanic Colors
 
 ID = sm.ID()  # init ID class
 blueprint = sm.Blueprint(ID)  # init Blueprint class

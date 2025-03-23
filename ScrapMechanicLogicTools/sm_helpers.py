@@ -3,12 +3,12 @@
 
 import json
 import os
-import block_list
-import color_list
+from ScrapMechanicLogicTools import block_list
+from ScrapMechanicLogicTools import color_list
 
-blocks = block_list.blocks()  # list of usable blocks
-objects = block_list.objects()  # list of usable objects
-colors = color_list.colors()  # list of Scrap Mechanic Colors
+blocks = block_list.Blocks()  # list of usable blocks
+objects = block_list.Objects()  # list of usable objects
+colors = color_list.Colors()  # list of Scrap Mechanic Colors
 
 
 
@@ -262,14 +262,14 @@ def rotate(rotation, pos, facing, rotated):
     rx = rx % 360
     ry = ry % 360
     rz = rz % 360
-    print(pos, facing, rotated)
+    #print(pos, facing, rotated)
     pos,facing,rotated = rotate_x(rx, pos, facing, rotated)
-    print(pos, facing, rotated)
+    #print(pos, facing, rotated)
     pos,facing,rotated = rotate_y(ry, pos, facing, rotated)
-    print(pos, facing, rotated)
+    #print(pos, facing, rotated)
     pos,facing,rotated = rotate_z(rz, pos, facing, rotated)
-    print(pos,facing,rotated)
-    print("////////////////////////////////////")
+    #print(pos,facing,rotated)
+    #print("////////////////////////////////////")
     return pos, facing, rotated
 
 def location(args):
@@ -372,9 +372,9 @@ class LightObject:
         self.block = block
         self.color = color
         self.ID = ID
-        self.lightColor =  lightColor
-        self.coneAngle =  coneAngle
-        self.activity =  activity
+        self.lightColor = lightColor
+        self.coneAngle = coneAngle
+        self.activity = activity
 
         self.connections = []
 

@@ -1,4 +1,4 @@
-class colors:
+class Colors:
     def __init__(self):
         self.Soft_Peach = "eeeeee"
         self.White = "eeeeee"

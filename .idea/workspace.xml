@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e8a4855-6b25-4ce0-941f-0ca4c513ee79" name="Changes" comment="bug fix in fill_void()">
+    <list default="true" id="5e8a4855-6b25-4ce0-941f-0ca4c513ee79" name="Changes" comment="fixed lights">
+      <change afterPath="$PROJECT_DIR$/block_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example.py" beforeDir="false" afterPath="$PROJECT_DIR$/example.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sm_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/sm_helpers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -12,24 +16,36 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="lnventorsteve &lt;dylanv60431@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "lnventorsteve"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;lnventorsteve&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/lnventorsteve/Scrap-Mechanic-Logic-Tools.git",
-    "accountId": "3295b047-b6bc-41e1-bf44-eea6e8b24b75"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/lnventorsteve/Scrap-Mechanic-Logic-Tools.git&quot;,
+    &quot;accountId&quot;: &quot;3295b047-b6bc-41e1-bf44-eea6e8b24b75&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2jDdVTZQxwh4c93KVLWzyqBCofQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -43,7 +59,9 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Python.blocks.executor": "Run",
     "Python.example.executor": "Run",
+    "Python.sm_helpers.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "/home/dyaln/PycharmProjects/ScrapMechanc Logic Tools"
   }
@@ -53,7 +71,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.blocks">
+  <component name="RunManager" selected="Python.example">
     <configuration name="blocks" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ScrapMechanc Logic Tools" />
       <option name="ENV_FILES" value="" />
@@ -98,17 +116,40 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="sm_helpers" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ScrapMechanc Logic Tools" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sm_helpers.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.blocks" />
         <item itemvalue="Python.example" />
+        <item itemvalue="Python.sm_helpers" />
+        <item itemvalue="Python.blocks" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
+        <option value="bundled-python-sdk-1b1018131e27-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.180" />
       </set>
     </attachedChunks>
   </component>
@@ -161,7 +202,95 @@
       <option name="project" value="LOCAL" />
       <updated>1720935802086</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added rotating">
+      <option name="closed" value="true" />
+      <created>1721174884898</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1721174884898</updated>
+    </task>
+    <task id="LOCAL-00007" summary="&quot;fixed&quot; rotation">
+      <option name="closed" value="true" />
+      <created>1721176301599</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1721176301599</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fixed place object">
+      <option name="closed" value="true" />
+      <created>1721177191396</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1721177191396</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fixed place object">
+      <option name="closed" value="true" />
+      <created>1721177263765</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1721177263765</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fixed place object">
+      <option name="closed" value="true" />
+      <created>1721177498586</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1721177498586</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fixed place object">
+      <option name="closed" value="true" />
+      <created>1721177750620</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1721177750620</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fixed place object">
+      <option name="closed" value="true" />
+      <created>1721177770505</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1721177770505</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added lights">
+      <option name="closed" value="true" />
+      <created>1721178698838</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1721178698838</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added version">
+      <option name="closed" value="true" />
+      <created>1721178780320</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1721178780320</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fixed lights">
+      <option name="closed" value="true" />
+      <created>1721178989252</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1721178989252</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fixed lights">
+      <option name="closed" value="true" />
+      <created>1721179411473</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1721179411473</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -169,6 +298,13 @@
     <MESSAGE value="SM Logic Tools beta" />
     <MESSAGE value="forgot about the config" />
     <MESSAGE value="bug fix in fill_void()" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fix in fill_void()" />
+    <MESSAGE value="added rotating" />
+    <MESSAGE value="&quot;fixed&quot; rotation" />
+    <MESSAGE value="fixed place object again" />
+    <MESSAGE value="fixed place object" />
+    <MESSAGE value="added lights" />
+    <MESSAGE value="added version" />
+    <MESSAGE value="fixed lights" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed lights" />
   </component>
 </project>

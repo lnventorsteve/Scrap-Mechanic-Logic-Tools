@@ -1,11 +1,11 @@
-import block_list
-import color_list
-import sm_helpers as sm
+from ScrapMechanicLogicTools import block_list
+from ScrapMechanicLogicTools import color_list
+from ScrapMechanicLogicTools import sm_helpers as sm
 
 
-blocks = block_list.blocks()  # list of usable blocks
-objects = block_list.objects()  # list of usable objects
-colors = color_list.colors()  # list of Scrap Mechanic Colors
+blocks = block_list.Blocks()  # list of usable blocks
+objects = block_list.Objects()  # list of usable objects
+colors = color_list.Colors()  # list of Scrap Mechanic Colors
 class PulseGenerator:
     def __init__(self,blueprint,pos,time,color=None,rotation=(0,0,0)):
         self.base = sm.FillBlock(blueprint,blocks.Spaceship_Block,(0,0,0),(4,5,1),color,rotation)  # make a base
